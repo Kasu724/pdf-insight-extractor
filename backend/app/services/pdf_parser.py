@@ -24,6 +24,7 @@ def extract_text_from_pdf(pdf_path: Path) -> dict:
     return {
         "page_count": len(pages),
         "character_count": len(full_text),
+        "full_text": full_text,
         "text_preview": full_text[:1000],
         "pages": pages,
     }

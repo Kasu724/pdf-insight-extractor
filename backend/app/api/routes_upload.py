@@ -3,6 +3,7 @@ from uuid import uuid4
 
 from fastapi import APIRouter, File, HTTPException, UploadFile
 
+from app.services.document_store import save_extracted_text
 from app.services.pdf_parser import extract_text_from_pdf
 
 router = APIRouter(prefix="/upload", tags=["upload"])
@@ -33,13 +34,19 @@ async def upload_pdf(file: UploadFile = File(...)):
     except ValueError as error:
         raise HTTPException(status_code=400, detail=str(error)) from error
 
+    processed_text_path = save_extracted_text(
+        file_id=file_id,
+        text=extracted["full_text"],
+    )
+
     return {
         "file_id": file_id,
         "original_filename": original_filename,
         "saved_filename": saved_filename,
         "saved_path": str(saved_path),
+        "processed_text_path": str(processed_text_path),
         "page_count": extracted["page_count"],
         "character_count": extracted["character_count"],
         "text_preview": extracted["text_preview"],
-        "message": "PDF uploaded and parsed successfully.",
+        "message": "PDF uploaded, parsed, and stored successfully.",
     }
