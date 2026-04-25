@@ -3,6 +3,8 @@ from uuid import uuid4
 
 from fastapi import APIRouter, File, HTTPException, UploadFile
 
+from app.services.pdf_parser import extract_text_from_pdf
+
 router = APIRouter(prefix="/upload", tags=["upload"])
 
 UPLOAD_DIR = Path("data/uploads")
@@ -26,10 +28,18 @@ async def upload_pdf(file: UploadFile = File(...)):
     file_bytes = await file.read()
     saved_path.write_bytes(file_bytes)
 
+    try:
+        extracted = extract_text_from_pdf(saved_path)
+    except ValueError as error:
+        raise HTTPException(status_code=400, detail=str(error)) from error
+
     return {
         "file_id": file_id,
         "original_filename": original_filename,
         "saved_filename": saved_filename,
         "saved_path": str(saved_path),
-        "message": "PDF uploaded successfully.",
+        "page_count": extracted["page_count"],
+        "character_count": extracted["character_count"],
+        "text_preview": extracted["text_preview"],
+        "message": "PDF uploaded and parsed successfully.",
     }
