@@ -1,6 +1,7 @@
 from fastapi import FastAPI
 
 from app.api.routes_documents import router as documents_router
+from app.api.routes_power_automate import router as power_automate_router
 from app.api.routes_upload import router as upload_router
 
 app = FastAPI(
@@ -10,6 +11,7 @@ app = FastAPI(
 
 app.include_router(upload_router)
 app.include_router(documents_router)
+app.include_router(power_automate_router)
 
 
 @app.get("/")

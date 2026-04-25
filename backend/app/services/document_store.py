@@ -46,3 +46,12 @@ def get_document_metadata(file_id: str) -> dict[str, Any]:
         raise FileNotFoundError(f"No metadata found for file_id: {file_id}")
 
     return json.loads(metadata_path.read_text(encoding="utf-8"))
+
+
+def get_extracted_text(file_id: str) -> str:
+    text_path = PROCESSED_DIR / f"{file_id}.txt"
+
+    if not text_path.exists():
+        raise FileNotFoundError(f"No extracted text found for file_id: {file_id}")
+
+    return text_path.read_text(encoding="utf-8")
