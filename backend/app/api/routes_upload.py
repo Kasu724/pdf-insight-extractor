@@ -1,9 +1,10 @@
+from datetime import datetime, timezone
 from pathlib import Path
 from uuid import uuid4
 
 from fastapi import APIRouter, File, HTTPException, UploadFile
 
-from app.services.document_store import save_extracted_text
+from app.services.document_store import save_document_metadata, save_extracted_text
 from app.services.pdf_parser import extract_text_from_pdf
 
 router = APIRouter(prefix="/upload", tags=["upload"])
@@ -39,7 +40,7 @@ async def upload_pdf(file: UploadFile = File(...)):
         text=extracted["full_text"],
     )
 
-    return {
+    metadata = {
         "file_id": file_id,
         "original_filename": original_filename,
         "saved_filename": saved_filename,
@@ -47,6 +48,17 @@ async def upload_pdf(file: UploadFile = File(...)):
         "processed_text_path": str(processed_text_path),
         "page_count": extracted["page_count"],
         "character_count": extracted["character_count"],
+        "processed_at": datetime.now(timezone.utc).isoformat(),
+    }
+
+    metadata_path = save_document_metadata(
+        file_id=file_id,
+        metadata=metadata,
+    )
+
+    return {
+        **metadata,
+        "metadata_path": str(metadata_path),
         "text_preview": extracted["text_preview"],
         "message": "PDF uploaded, parsed, and stored successfully.",
     }
