@@ -20,10 +20,12 @@ backend/data/app.db
 backend/data/*.db
 backend/data/uploads/*
 backend/data/processed/*
+backend/data/exports/*
 
 # Keep empty tracked data folders
 !backend/data/uploads/.gitkeep
 !backend/data/processed/.gitkeep
+!backend/data/exports/.gitkeep
 
 # Databricks local config / bundles
 .databricks/

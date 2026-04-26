@@ -6,31 +6,32 @@ The project demonstrates a document-processing workflow where a PDF is uploaded,
 
 ## Project Goals
 
-- Learn Power Automate workflow design using a real file-ingestion flow.
-- Learn PDF parsing and document-processing basics in Python.
-- Learn how Databricks can support AI and data workflows.
-- Learn how Copilot Studio can provide a business-facing agent/chat interface.
-- Build a clean, explainable project that can be deployed and demoed.
+- Learn Power Automate workflow design using a real file-ingestion flow
+- Learn PDF parsing and document-processing basics in Python
+- Learn how Databricks can support AI and data workflows
+- Learn how Copilot Studio can provide a business-facing agent/chat interface
+- Build a clean, explainable project that can be deployed and demoed
 
 ## Current Status
 
 Completed:
 
-- FastAPI backend created.
-- PDF upload endpoint created.
-- PDF text extraction added with PyMuPDF.
-- Extracted text stored locally as `.txt`.
-- Processed document metadata stored locally as `.json`.
-- API endpoints added to list documents, retrieve metadata, retrieve extracted text, and generate basic insights.
-- Power Automate flow connected to the backend through a temporary VS Code public forwarded port.
-- Power Automate successfully processed a PDF uploaded to OneDrive for Business.
+- FastAPI backend created
+- PDF upload endpoint created
+- PDF text extraction added with PyMuPDF
+- Extracted text stored locally as `.txt`
+- Processed document metadata stored locally as `.json`
+- API endpoints added to list documents, retrieve metadata, retrieve extracted text, and generate basic insights
+- Power Automate flow connected to the backend through a temporary VS Code public forwarded port
+- Power Automate successfully processed a PDF uploaded to OneDrive for Business
+- Databricks export script creates a JSONL file from processed documents.
+- Databricks notebook loads exported document records into a table.
 
 Planned next:
 
-- Add a lightweight API security token.
-- Add Databricks ingestion for processed document data.
-- Add Copilot Studio chat integration.
-- Deploy the API to Azure App Service for a stable demo URL.
+- Add Databricks ingestion for processed document data
+- Add Copilot Studio chat integration
+- Deploy the API to Azure App Service for a stable demo URL
 
 ## Technology Stack
 
@@ -68,10 +69,10 @@ The current Power Automate flow watches this OneDrive for Business folder:
 
 When a PDF is uploaded, the flow:
 
-1. Detects the new file.
-2. Gets the file content.
-3. Encodes the file content as base64.
-4. Sends the filename and encoded content to the FastAPI backend.
+1. Detects the new file
+2. Gets the file content
+3. Encodes the file content as base64
+4. Sends the filename and encoded content to the FastAPI backend
 
 The flow calls:
 

@@ -12,13 +12,13 @@ It detects when a PDF is uploaded to OneDrive for Business, reads the file conte
 
 ## Current Implementation Status
 
-1. Power Automate detected a new PDF in OneDrive.
-2. The flow retrieved the PDF file content.
-3. The flow sent the PDF to the local FastAPI backend through a temporary VS Code public forwarded port.
-4. The backend saved the uploaded PDF.
-5. The backend extracted text with PyMuPDF.
-6. The backend created a processed `.txt` text file.
-7. The backend created a processed `.json` metadata file.
+1. Power Automate detected a new PDF in OneDrive
+2. The flow retrieved the PDF file content
+3. The flow sent the PDF to the local FastAPI backend through a temporary VS Code public forwarded port
+4. The backend saved the uploaded PDF
+5. The backend extracted text with PyMuPDF
+6. The backend created a processed `.txt` text file
+7. The backend created a processed `.json` metadata file
 
 ## OneDrive Folder
 
@@ -110,7 +110,8 @@ Headers:
 
 ```json
 {
-  "Content-Type": "application/json"
+  "Content-Type": "application/json",
+  "x-api-key": "YOUR_API_KEY_VALUE"
 }
 ```
 
@@ -240,18 +241,18 @@ This is only a development shortcut. The planned deployment target is Azure App 
 
 Use this checklist to verify the flow:
 
-1. Start the FastAPI backend locally.
-2. Forward port `8000` in VS Code.
-3. Set the forwarded port visibility to `Public`.
-4. Confirm `/health` works through the public forwarded URL.
-5. Upload a PDF to `/PDF Insight Extractor/Uploads` in OneDrive for Business.
-6. Open the flow run history in Power Automate.
-7. Confirm the trigger succeeded.
-8. Confirm `Get file content` succeeded.
-9. Confirm the HTTP action succeeded.
-10. Confirm the backend returned a `file_id`.
-11. Confirm a `.txt` file exists in `backend/data/processed`.
-12. Confirm a `.json` file exists in `backend/data/processed`.
+1. Start the FastAPI backend locally
+2. Forward port `8000` in VS Code
+3. Set the forwarded port visibility to `Public`
+4. Confirm `/health` works through the public forwarded URL
+5. Upload a PDF to `/PDF Insight Extractor/Uploads` in OneDrive for Business
+6. Open the flow run history in Power Automate
+7. Confirm the trigger succeeded
+8. Confirm `Get file content` succeeded
+9. Confirm the HTTP action succeeded
+10. Confirm the backend returned a `file_id`
+11. Confirm a `.txt` file exists in `backend/data/processed`
+12. Confirm a `.json` file exists in `backend/data/processed`
 
 ## Troubleshooting
 
@@ -283,10 +284,10 @@ instead of passing the file content directly.
 
 Possible causes:
 
-- The FastAPI server is not running.
-- The VS Code forwarded port stopped.
-- The forwarded port is private instead of public.
-- The URI still points to `127.0.0.1`.
+- The FastAPI server is not running
+- The VS Code forwarded port stopped
+- The forwarded port is private instead of public
+- The URI still points to `127.0.0.1`
 
 Fix:
 
