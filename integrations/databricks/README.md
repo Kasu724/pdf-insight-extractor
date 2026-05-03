@@ -27,7 +27,9 @@ Planned next:
 integrations/databricks/
 |-- README.md
 `-- notebooks/
-    `-- 01_load_documents.py
+    |-- 01_load_documents.py
+    |-- 02_chunk_documents.py
+    `-- 03_search_chunks.py
 ```
 
 ## Local Export File
@@ -58,13 +60,11 @@ Example shape:
 }
 ```
 
-## Notebook
-Notebook source file:
-```text
-integrations/databricks/notebooks/01_load_documents.py
-```
+## Notebooks
 
+### `01_load_documents.py`
 Purpose:
+
 1. Load `documents_for_databricks.jsonl`
 2. Parse document records
 3. Create a Spark DataFrame
@@ -72,13 +72,33 @@ Purpose:
 5. Save the table as pdf_insight_documents
 6. Run validation queries
 
+Output table: `pdf_insight_documents`
+
+### `02_chunk_documents.py`
+Purpose:
+1. Read pdf_insight_documents
+2. Split each document into overlapping text chunks
+3. Save the chunks as a table
+4. Run validation queries
+
+Output table: `pdf_insight_document_chunks`
+
+### `03_search_chunks.py`
+Purpose:
+1. Read `pdf_insight_document_chunks`
+2. Accept a search_query widget value
+3. Split the query into searchable terms
+4. Score chunks by keyword matches
+5. Display the best matching chunks
+
+
 ## Databricks Setup
 In Databricks Free Edition:
 1. Create a workspace folder: `PDF Insight Extractor`
 2. Upload or import the notebook: `integrations/databricks/notebooks/01_load_documents.py`
 3. Upload the generated export file: `backend/data/exports/documents_for_databricks.jsonl`
 4. Open the notebook
-5. Run the notebook cells in order.
+5. Run the notebook cells in order
 
 Expected result:
 ```text

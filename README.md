@@ -26,6 +26,7 @@ Completed:
 - Power Automate successfully processed a PDF uploaded to OneDrive for Business
 - Databricks export script creates a JSONL file from processed documents.
 - Databricks notebook loads exported document records into a table.
+- Databricks document chunking and basic keyword search
 
 Planned next:
 
@@ -57,6 +58,9 @@ OneDrive for Business upload folder
   -> Extract PDF text with PyMuPDF
   -> Save processed .txt and .json files
   -> Expose results through API endpoints
+  -> Export processed documents to Databricks
+  -> Chunk documents for search
+  -> Run baseline document search
 ```
 
 ## Power Automate Integration
